@@ -52,6 +52,8 @@ Current profiles in this repository:
 - `rust`
   Adds Rust-specific ignore patterns and `.agent/LANGUAGE_RULES.md` content.
 
+The `agent` profile's `.agent/CONTEXT/DECISIONS.md` is a strong ADR register for durable architecture rules, not an issue log.
+
 ## `repokit` configuration inside profiles
 
 The `.repokit/` directory is template metadata for `repokit-cli`. It is not copied into target repositories.
