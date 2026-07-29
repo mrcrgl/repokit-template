@@ -44,7 +44,7 @@ Current profiles in this repository:
 - `base`
   Provides shared repository defaults such as issue templates, pull request template, base `.gitignore`, label definitions, and merge rules.
 - `agent`
-  Provides reusable `.agent/` guidance plus `AGENTS.md` for agent-driven repositories.
+  Provides reusable `.agent/` guidance plus `AGENTS.md` for agent-driven repositories. The profile's `.agent/CONTEXT/DECISIONS.md` is a strong ADR register for durable architecture rules, not an issue log.
 - `python`
   Adds Python-specific ignore patterns and `.agent/LANGUAGE_RULES.md` content.
 - `rust`
