@@ -1,6 +1,6 @@
 # Template Repository Guide
 
-This repository is the template source consumed by [`repokit-cli`](https://github.com/nimbusforge/repokit-cli).
+This repository is the template source consumed by [`repokit-cli`](https://github.com/evenonfridays/repokit-cli).
 
 Use this guide if you need to understand how the template repository is organized, what each profile owns, or how changes here affect target repositories.
 
