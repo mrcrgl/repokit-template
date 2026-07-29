@@ -8,6 +8,7 @@ This repository defines composable template profiles for common repository conce
 
 - `profiles/base/`: required baseline files for repository hygiene, including issue templates, pull request template, merge rules, and GitHub label definitions.
 - `profiles/agent/`: reusable agent workflow and repository operating guidance.
+- `profiles/claude/`: Claude Code compatibility file that imports the `AGENTS.md` provided by the `agent` profile.
 - `profiles/python/`: Python-specific ignore rules and agent language guidance.
 - `profiles/rust/`: Rust-specific ignore rules and agent language guidance.
 
@@ -21,7 +22,7 @@ Use [`repokit-cli`](https://github.com/nimbusforge/repokit-cli) to initialize a 
 repokit init \
   --template https://github.com/nimbusforge/repokit-template.git \
   --ref main \
-  --profiles base,agent
+  --profiles base,agent,claude
 ```
 
 After initialization, the target repository can be updated with:
@@ -40,6 +41,7 @@ The template source is organized by profile:
 profiles/
   base/
   agent/
+  claude/
   python/
   rust/
 ```

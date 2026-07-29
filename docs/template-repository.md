@@ -45,6 +45,8 @@ Current profiles in this repository:
   Provides shared repository defaults such as issue templates, pull request template, base `.gitignore`, label definitions, and merge rules.
 - `agent`
   Provides reusable `.agent/` guidance plus `AGENTS.md` for agent-driven repositories.
+- `claude`
+  Adds a root `CLAUDE.md` that imports `AGENTS.md` for Claude Code. Select it together with the `agent` profile.
 - `python`
   Adds Python-specific ignore patterns and `.agent/LANGUAGE_RULES.md` content.
 - `rust`
