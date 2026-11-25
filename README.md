@@ -1,6 +1,6 @@
 # repokit-template
 
-Reusable repository templates for bootstrapping and updating repositories with [`repokit-cli`](https://github.com/evenonfridays/repokit-cli).
+Reusable repository templates for bootstrapping and updating repositories with [`repokit-cli`](https://github.com/mrcrgl/repokit).
 
 This repository defines composable template profiles for common repository concerns such as base GitHub workflow files, agent operating rules, and language-specific overlays. It is designed to be consumed by `repokit-cli`, which applies the selected profiles to target repositories and updates them later with merge-aware behavior.
 
@@ -16,11 +16,11 @@ This repository defines composable template profiles for common repository conce
 
 ## How it is used
 
-Use [`repokit-cli`](https://github.com/evenonfridays/repokit-cli) to initialize a target repository from this template repo or update an existing initialized repository.
+Use [`repokit-cli`](https://github.com/mrcrgl/repokit) to initialize a target repository from this template repo or update an existing initialized repository.
 
 ```bash
 repokit init \
-  --template https://github.com/evenonfridays/repokit-template.git \
+  --template https://github.com/mrcrgl/repokit-template.git \
   --ref main \
   --profiles base,agent,claude
 ```
