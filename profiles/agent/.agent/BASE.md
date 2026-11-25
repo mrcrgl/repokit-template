@@ -40,7 +40,7 @@ These rules are intentionally cross‑project. Project‑specific details belong
 - Correlate logs/traces per request/job.
 
 ## Documentation
-- Durable architecture, boundary, runtime-policy, and long-lived product/API contract decisions → add a short entry to `.agent/CONTEXT/DECISIONS.md`.
+- Durable architecture, boundary, runtime-policy, and long-lived product/API contract decisions → add a short decision file under `.agent/CONTEXT/decisions/` (one file per decision; see its README for the bar — most changes add none).
 - Implementation notes, refactor slices, file moves, test reorganizations, and issue-local choices belong in the Issue/PR or an archive, not the active decisions log.
 - Behavior changes → update docs/README/API docs as appropriate.
 
@@ -48,3 +48,7 @@ These rules are intentionally cross‑project. Project‑specific details belong
 - Keep changes minimal and reviewable.
 - Avoid “clever” code when a clear version is available.
 - Prefer small, composable functions with explicit inputs/outputs.
+
+## Technical debt discipline
+- If a change touches code that violates a documented rule (`BASE.md`, `PROJECT.md`, or a decision in `.agent/CONTEXT/decisions/`), bring the touched code into compliance as part of that change — predating the rule is not an exemption.
+- If you notice non‑compliant code the current change doesn't otherwise touch, don't drive‑by refactor it (that's an undisclosed scope expansion). File a follow‑up Issue describing the gap and reference it from the current PR instead, so the debt is tracked rather than silently accumulating or silently expanding scope.

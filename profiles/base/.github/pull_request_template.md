@@ -20,7 +20,7 @@ Link: #ISSUE_ID
 ## Checklist
 - [ ] DoD satisfied (see `.agent/DOD.md`)
 - [ ] Tests added/updated
-- [ ] Docs/DECISIONS updated if needed
+- [ ] Docs updated where behavior changed; a decision file added only if this sets a rule future work must follow
 - [ ] Issue status updated (e.g., `status:review`)
 
 Part of #ISSUE_ID

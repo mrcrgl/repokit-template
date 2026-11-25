@@ -2,3 +2,18 @@
 name = "LANGUAGE_RULES.md"
 strategy = "markdown_block"
 patterns = [".agent/LANGUAGE_RULES.md"]
+
+# The decision register deliberately has no merge rule.
+#
+# - `.agent/CONTEXT/decisions/<date>-<slug>.md` files are repo-owned. The
+#   template ships only `decisions/README.md`, and `repokit update` never
+#   deletes files the template does not ship, so a repo's decisions survive
+#   every sync.
+# - `.agent/CONTEXT/DECISIONS.md` is a pointer stub. A repo that still holds
+#   its own entries there has a locally modified file, so `repokit update`
+#   keeps it and writes the stub to `DECISIONS.md.new` instead; a
+#   `markdown_block` rule would append the stub below the entries and hide
+#   that the migration is still pending. A repo that already has the stub
+#   matches the template byte for byte and is left unchanged.
+#
+# See docs/template-repository.md, "Migrating to one file per decision".

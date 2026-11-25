@@ -52,7 +52,7 @@ Current profiles in this repository:
 - `rust`
   Adds Rust-specific ignore patterns and `.agent/LANGUAGE_RULES.md` content.
 
-The `agent` profile's `.agent/CONTEXT/DECISIONS.md` is a strong ADR register for durable architecture rules, not an issue log.
+The `agent` profile's decision register is `.agent/CONTEXT/decisions/`: one file per durable architecture rule, not an issue log. `.agent/CONTEXT/decisions/README.md` defines the bar and the file format; `.agent/CONTEXT/DECISIONS.md` is only a pointer stub.
 
 ## `repokit` configuration inside profiles
 
@@ -66,6 +66,24 @@ This repository currently uses:
   Defines the GitHub labels that can be added to target repositories.
 - `profiles/agent/.repokit/merge.toml`
   Merges `.agent/LANGUAGE_RULES.md` as a Markdown block so language-specific overlays can extend it cleanly.
+  It deliberately has no rule for the decision register; its comments explain why a plain sync already keeps a repo's decision files and `DECISIONS.md` intact.
+
+## Migrating to one file per decision
+
+Repositories synced before the `agent` profile split the decision register keep all their decisions in a single `.agent/CONTEXT/DECISIONS.md`. On the next `repokit update`:
+
+- `.agent/CONTEXT/decisions/README.md` is added.
+- If `DECISIONS.md` was never edited, it is replaced by the stub. It held no entries, so nothing is lost.
+- If `DECISIONS.md` holds entries, it is kept and the stub is written to `.agent/CONTEXT/DECISIONS.md.new`. The other changed agent files may get `.new` files as well; merge them as usual.
+
+To finish the migration, in one pull request:
+
+1. Split every entry into `.agent/CONTEXT/decisions/YYYY-MM-DD-<slug>.md`, using the format in `decisions/README.md`: the title states the rule, the date is the entry's date, and the reasoning keeps any rejected alternatives. Move every entry, even ones that no longer seem to clear the bar, so the migration can be reviewed as lossless. Delete or rewrite them in a separate change.
+2. Lift the rules into `.agent/PROJECT.md`: for each decision that future work must follow, write the one-line imperative into the matching section and link the decision file by path. A rule that lives only in the register is not read before code is written, because `AGENTS.md` makes `PROJECT.md` mandatory reading and `.agent/CONTEXT/*` optional.
+3. Replace `DECISIONS.md` with the stub (`mv .agent/CONTEXT/DECISIONS.md.new .agent/CONTEXT/DECISIONS.md`). Leave it in place rather than deleting it: a missing file would be recreated by the next sync.
+4. Search the repository for `DECISIONS.md` and update references to point at `decisions/` or at the specific decision file.
+
+After that, `DECISIONS.md` matches the template, and later syncs leave it and the decision files untouched.
 
 ## Authoring and maintenance guidance
 
