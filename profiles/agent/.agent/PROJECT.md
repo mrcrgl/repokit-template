@@ -72,11 +72,17 @@ Use this file to tailor the agent to the repo. Keep it short and actionable. Thi
 - **Merge strategy:**
 
 ## Documentation expectations
+- **Rules in this file are one line each; the reasoning goes in the linked decision file, not here.**
 - **Docs that must be updated for changes:**
-- **ADR/decision log location:**
-- **What belongs in the decision log:** stable layer ownership, domain/API/persistence boundary rules, contract versioning rules, and cross-cutting runtime policies.
-- **What does not belong in the decision log:** issue-slice refactors, extracted services, renamed files, file splits, test-module reorganizations, or cleanup passes unless they create a reusable repo-wide rule.
-- **Where implementation history goes:** issue and PR updates by default; use an archive only if the note is worth keeping but not part of the active architectural working set.
+- **Stale-docs check:** (how this repo runs `.agent/DOD.md`'s docs search before every push — e.g. a skill in `.claude/skills/`, a script, or "by hand")
+- **Decision register:** `.agent/CONTEXT/decisions/`, one file per decision (see its `README.md`); `.agent/CONTEXT/DECISIONS.md` is only a pointer stub.
+- **What belongs in the decision log** (authoritative — `.agent/CONTEXT/decisions/README.md` defers to this): only a rule future work must preserve — stable layer ownership, domain/API/persistence boundary rules, contract versioning rules, cross-cutting runtime policies.
+- **What does not belong:** issue-slice refactors, extracted services, renamed files, file splits, test reorganizations, endpoint/response documentation, verification narratives, cleanup passes — unless they create a reusable repo-wide rule. Most changes add no decision; a PR that adds one says why it clears the bar.
+- **Promote the rule, keep the reasoning:** write the one-line imperative into the matching section of this file and put the why and rejected alternatives in a decision file, linked from the rule by path — this file is mandatory reading, `.agent/CONTEXT/*` is not.
+- **Supersede in place:** a decision that changes an earlier one edits that file to state current reality; never add a second one beside it.
+- **Implementation history goes in issue and PR updates;** use an archive only for notes worth keeping outside the active architectural working set.
+- **Rules lifted from decisions** that have no better section above:
+  - `<one-line rule>` ([decision](CONTEXT/decisions/YYYY-MM-DD-<slug>.md))
 
 ## Language‑specific conventions
 ### Rust

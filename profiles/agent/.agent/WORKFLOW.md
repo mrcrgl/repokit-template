@@ -7,7 +7,7 @@ This workflow is intentionally general so it can be reused across repositories.
 - Every change maps to exactly one GitHub Issue.
 - The Issue contains current status via labels and/or the Issue form status field.
 - If scope changes, update the Issue (plan + acceptance criteria).
-- Progress notes, refactor rationale, temporary trade-offs, and issue-scoped execution details belong in the Issue or PR, not `.agent/CONTEXT/DECISIONS.md`.
+- Progress notes, refactor rationale, temporary trade-offs, and issue-scoped execution details belong in the Issue or PR, not in `.agent/CONTEXT/decisions/`.
 
 ## Issue types
 Use the repo’s issue templates:
@@ -18,10 +18,12 @@ Use the repo’s issue templates:
 - Spike: time-boxed research to reduce uncertainty.
 
 ## Status tracking (labels)
-Exactly one status label should be active at a time:
-- `status:triage` → `status:in-progress` → `status:review` → `status:done`
-- When you start work, immediately move the Issue to `status:in-progress` (or update the Issue status field).
+- Every open Issue must carry exactly one `status:*` label at all times — never zero, never more than one. An open Issue with no `status:*` label is a bug in itself; apply `status:triage` immediately if you find one.
+- Lifecycle: `status:triage` → `status:in-progress` → `status:review` → `status:done`.
+- **Mandatory**: the moment work starts on an Issue — i.e. at branch creation (see Branching, below), before the first commit — swap its label to `status:in-progress` in the same action. This is not optional and not something to defer until "later in the session." An Issue must never sit at `status:triage` while a branch or commits for it already exist.
+- Moving to `status:review` requires an actual PR open against it (or, for Spikes with no code change, a findings write-up posted to the Issue). Don't set `status:review` preemptively.
 - If blocked, use `status:blocked` and comment with the blocker + next step.
+- Before ending any session that touched an Issue, verify its label still matches reality (see `.agent/DOD.md` Status hygiene).
 
 ## Branching (GitHub Flow)
 - Always run `git fetch origin` before creating any branch.
@@ -34,7 +36,7 @@ Exactly one status label should be active at a time:
 ## Coding Flow
 1. Load issue/ticket.
 2. Check if the ticket is self-explanatory. If not, ask clarification questions and update the ticket (plan + acceptance criteria).
-3. Run `git fetch origin`, then create a local branch from `main`/`master` (whichever exists).
+3. Run `git fetch origin`, then create a local branch from `main`/`master` (whichever exists). In the same step, set the Issue's label to `status:in-progress` — see Status tracking, above.
 4. Work in small units; keep working notes, decisions, TODOs, and risks.
    Record implementation history in the Issue/PR unless it establishes a durable architectural rule that future work must preserve.
 5. Run diagnostics.
@@ -64,6 +66,7 @@ Examples:
 ## Review & merge
 - Request review when ready; update status to `status:review`.
 - Address feedback; keep commits clean.
+- **A security-relevant PR merges only after an independent review.** Security-relevant: cryptography, key material, certificates and identities, authentication and authorization, and anything that releases a secret. The reviewer is someone other than the author, given the code and the design, not the author's conclusions. Its findings are fixed and the fixes checked again before the merge. Other PRs keep the author's own review.
 - Merge using the repo’s preferred strategy.
 
 ## Completion
